@@ -79,7 +79,7 @@ public class Downloader {
 			return file.getAbsolutePath();
 		}
 	}
-	static String baseURL = "http://gd2.mlb.com/components/game/mlb";
+	static String baseURL = "http://gd2.mlb.com/components/game/";
 	static String baseLocalURL;
 	static ArrayList<String> files = new ArrayList<String>();
 	static int maxThreads = 8;
@@ -95,17 +95,20 @@ public class Downloader {
 		if (args.length == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR); 
 			baseLocalURL = getOSPath(System.getProperty("user.dir")+"\\out");
+			baseURL = baseURL+"mlb";
 			print("No year specified, using " + year);
 			print("No directory specified, output can be found at:\n" + baseLocalURL);
 		}
 		else if (args.length == 1) {
 			year = Integer.parseInt(args[0]);
 			baseLocalURL = getOSPath(System.getProperty("user.dir")+"\\out");
+			baseURL = baseURL+"mlb";
 			print("No directory specified, output can be found at:\n" + baseLocalURL);
 		}
 		else {
 			year = Integer.parseInt(args[0]);
 			baseLocalURL = args[1];
+			baseURL = baseURL+args[2];
 			print("Output can be found at:\n" + baseLocalURL);
 		}
 		if (args.length > 2) {
@@ -114,12 +117,15 @@ public class Downloader {
 			}
 		}
 		else {
-			print("No filenames specified, using default: game_events.json, boxscore.json, inning_all.xml, inning_hit.xml, inning_Scores.xml");
+			print("No filenames specified, using default: game_events.json, boxscore.json, inning_all.xml, inning_hit.xml, inning_Scores.xml, game.xml, linescore.xml, gameday_Syn.xml");
 			files.add("game_events.json");
 			files.add("boxscore.json");
 			files.add("inning_all.xml");
 			files.add("inning_hit.xml");
 			files.add("inning_Scores.xml");
+			files.add("game.xml");
+			files.add("linescore.xml");
+			files.add("gameday_Syn.xml");
 		}
 		if (args.length > 0) {
 			String lastArg = args[args.length-1];
